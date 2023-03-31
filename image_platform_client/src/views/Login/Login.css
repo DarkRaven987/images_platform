@@ -1,0 +1,50 @@
+.login-container {
+  background-color: #282c34;
+  height: 100vh;
+  width: 100vw;
+}
+
+.login-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.login-logo {
+  font-size: 330px;
+  pointer-events: none;
+  color: #61dafb;
+}
+
+@keyframes login-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .login-logo {
+    animation: login-logo-spin infinite 20s linear;
+  }
+}
+
+.login-title {
+  color: #61dafb;
+}
+
+.forms-container {
+  margin-top: 2em;
+  display: flex !important;
+  justify-content: center;
+}
+
+.actions-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2em;
+}
