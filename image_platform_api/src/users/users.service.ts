@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserDto, UpdateUserDto } from './dtos/users.dto';
 import UsersRepository from './users.repository';
 
