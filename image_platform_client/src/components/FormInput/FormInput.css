@@ -1,0 +1,22 @@
+.form-input > label {
+  color: #c9c9c9 !important ;
+}
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input > input {
+  width: calc(100% - 20px);
+  font-size: 18px;
+  padding: 8px;
+  margin-top: 8px;
+}
+
+.form-input .error-message {
+  color: red;
+  margin: 10px 0 0;
+  font-size: 14px;
+  max-width: calc(100% - 20px);
+}
