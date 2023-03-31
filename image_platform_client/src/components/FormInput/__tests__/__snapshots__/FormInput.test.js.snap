@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormInput component: * matches the snapshot: Input-after-edit 1`] = `
+<div
+  class="form-input custom-class-name"
+  data-testid="form-input-container"
+>
+  <label
+    data-testid="form-input-label"
+    for="test-1"
+  >
+    Test Input
+  </label>
+  <input
+    data-testid="form-input"
+    id="test-1"
+    type="text"
+    value="User typed here"
+  />
+</div>
+`;
+
+exports[`FormInput component: * matches the snapshot: Input-before-edit 1`] = `
+<div
+  class="form-input custom-class-name"
+  data-testid="form-input-container"
+>
+  <label
+    data-testid="form-input-label"
+    for="test-1"
+  >
+    Test Input
+  </label>
+  <input
+    data-testid="form-input"
+    id="test-1"
+    type="text"
+    value=""
+  />
+</div>
+`;

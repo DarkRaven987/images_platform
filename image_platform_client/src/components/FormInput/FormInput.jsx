@@ -10,7 +10,7 @@ const FormInput = ({
   className = '',
   style,
   error,
-  refer,
+  refer = {},
 }) => {
   const { onChange: referOnChange, ...rest } = refer;
 
@@ -26,16 +26,27 @@ const FormInput = ({
   );
 
   return (
-    <div className={`form-input ${className}`} style={style}>
-      <label htmlFor={id}>{label}</label>
+    <div
+      className={`form-input ${className}`}
+      style={style}
+      data-testid="form-input-container"
+    >
+      <label htmlFor={id} data-testid="form-input-label">
+        {label}
+      </label>
       <input
         id={id}
         type={type}
         value={val}
         onChange={handleChange}
+        data-testid="form-input"
         {...rest}
       />
-      {!!error && <p className="error-message">{error.message}</p>}
+      {!!error && (
+        <p data-testid="form-input-error" className="error-message">
+          {error.message}
+        </p>
+      )}
     </div>
   );
 };
