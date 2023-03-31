@@ -1,4 +1,5 @@
 import { render, screen, cleanup } from '@testing-library/react';
+import user from '@testing-library/user-event';
 import renderer from 'react-test-renderer';
 import Button from '../Button';
 
@@ -52,8 +53,11 @@ describe('Button component:', () => {
     expect(ButtonElement).toMatchSnapshot('test-button-snapshot');
   });
 
-  it('* button is clickable', () => {
+  it('* button is clickable', async () => {
+    user.setup();
+
     let test = 0;
+
     render(
       <Button
         type="submit"
@@ -66,15 +70,18 @@ describe('Button component:', () => {
     const ButtonElement = screen.getByTestId('button-test');
 
     expect(test).toBe(0);
-    ButtonElement.click();
+    await user.click(ButtonElement);
     expect(test).toBe(1);
-    ButtonElement.click();
-    ButtonElement.click();
+    await user.click(ButtonElement);
+    await user.click(ButtonElement);
     expect(test).toBe(3);
   });
 
-  it('* button is disabled and not clickable', () => {
+  it('* button is disabled and not clickable', async () => {
+    user.setup();
+
     let test = 0;
+
     render(
       <Button
         type="submit"
@@ -90,10 +97,10 @@ describe('Button component:', () => {
     expect(ButtonElement.disabled).toBe(true);
 
     expect(test).toBe(0);
-    ButtonElement.click();
+    await user.click(ButtonElement);
     expect(test).not.toBe(1);
-    ButtonElement.click();
-    ButtonElement.click();
+    await user.click(ButtonElement);
+    await user.click(ButtonElement);
     expect(test).not.toBe(3);
   });
 });
