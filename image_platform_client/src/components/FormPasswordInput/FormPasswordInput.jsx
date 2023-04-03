@@ -15,7 +15,7 @@ const FormPasswordInput = ({
   const { onChange: referOnChange, ...rest } = refer;
 
   const [val, setVal] = useState(value);
-  const [showPassword, setShowPassword] = useState(value);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = useCallback(
     (e) => {
@@ -33,8 +33,14 @@ const FormPasswordInput = ({
   };
 
   return (
-    <div className={`form-password-input ${className}`} style={style}>
-      <label htmlFor={id}>{label}</label>
+    <div
+      className={`form-password-input ${className}`}
+      style={style}
+      data-testid="password-input-container"
+    >
+      <label htmlFor={id} data-testid="password-input-label">
+        {label}
+      </label>
 
       <div className="input-with-icon-container">
         <input
@@ -42,17 +48,27 @@ const FormPasswordInput = ({
           type={showPassword ? 'text' : 'password'}
           value={val}
           onChange={handleChange}
+          data-testid="password-input"
           {...rest}
         />
         <div
           className="show-password-icon-container"
           onClick={handleClickShowPassword}
           onMouseDown={handleMouseDownPassword}
+          data-testid="password-input-icon-container"
         >
-          {showPassword ? <NonVisible /> : <Visible />}
+          {showPassword ? (
+            <NonVisible data-testid="password-input-icon-non-visible" />
+          ) : (
+            <Visible data-testid="password-input-icon-visible" />
+          )}
         </div>
       </div>
-      {!!error && <p className="error-message">{error.message}</p>}
+      {!!error && (
+        <p className="error-message" data-testid="password-input-error">
+          {error.message}
+        </p>
+      )}
     </div>
   );
 };
