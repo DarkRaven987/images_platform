@@ -1,8 +1,8 @@
 .modal-wrapper {
   background: rgba(0, 0, 0, 0.377);
-  padding-top: 350px;
+  padding-top: 100px;
   width: 100vw;
-  height: calc(100vh - 350px);
+  height: calc(100vh - 100px);
 }
 
 .modal-container {
