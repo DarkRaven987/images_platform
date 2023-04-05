@@ -53,4 +53,11 @@ export const signUpAction = async ({ username, password }) => {
   }
 };
 
+export const signOutAction = () => {
+  localStorage.removeItem('user');
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
+  window.location.replace(`${window.location.origin}/login`);
+};
+
 export default reducer;

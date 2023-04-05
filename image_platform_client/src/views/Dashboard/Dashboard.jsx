@@ -1,5 +1,12 @@
+import Header from './components/Header/Header';
+import './Dashboard.css';
+
 const DashboardView = () => {
-  return <div>Dashboard View here</div>;
+  return (
+    <div className="page-container">
+      <Header title="Images platform" />
+    </div>
+  );
 };
 
 export default DashboardView;
