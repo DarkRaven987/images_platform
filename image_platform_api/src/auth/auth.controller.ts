@@ -39,7 +39,7 @@ export class AuthController {
   @UseGuards(RefreshTokenGuard)
   @Get('refresh')
   refreshTokens(@Req() req: Request) {
-    const userId = req.user['sub'];
+    const userId = req.user['id'];
     return this.authService.refreshAccessToken(userId);
   }
 
