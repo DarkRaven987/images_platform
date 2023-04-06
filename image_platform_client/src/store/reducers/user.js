@@ -29,7 +29,7 @@ export const signInAction = async ({ dispatch, username, password }) => {
     if (!user?.PK) return false;
 
     dispatch(saveUserData(user));
-    localStorage.setItem('user', user);
+    localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('accessToken', `Bearer ${accessToken}`);
     localStorage.setItem('refreshToken', `Bearer ${refreshToken}`);
 

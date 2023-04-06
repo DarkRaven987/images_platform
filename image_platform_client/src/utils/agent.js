@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { API_REFRESH_URL } from './agentConsts';
 
 const localStorage = window.localStorage;
 
@@ -6,7 +7,7 @@ const refreshAccessToken = () => {
   const requester = axios.create({
     baseURL: process.env.REACT_APP_API_SERVICE_URL,
   });
-  return requester.get('/refresh', {
+  return requester.get(API_REFRESH_URL, {
     headers: {
       Authorization: localStorage.getItem('refreshToken'),
     },
