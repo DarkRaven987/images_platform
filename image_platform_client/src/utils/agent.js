@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { API_REFRESH_URL } from './agentConsts';
 
 const localStorage = window.localStorage;
 
@@ -6,7 +7,7 @@ const refreshAccessToken = () => {
   const requester = axios.create({
     baseURL: process.env.REACT_APP_API_SERVICE_URL,
   });
-  return requester.get('/refresh', {
+  return requester.get(API_REFRESH_URL, {
     headers: {
       Authorization: localStorage.getItem('refreshToken'),
     },
@@ -81,13 +82,10 @@ const getAgentInstance = (props = {}) => {
         originalRequest._retry
       ) {
         console.log('TOKEN ERROR: Clearing token data.');
-        const refreshToken = localStorage.getItem('refreshToken');
-        await agent.post('/logout', { refreshToken }).then(() => {
-          localStorage.removeItem('user');
-          localStorage.removeItem('accessToken');
-          localStorage.removeItem('refreshToken');
-          window.location.replace(`${window.location.origin}/login`);
-        });
+        localStorage.removeItem('user');
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        window.location.replace(`${window.location.origin}/login`);
       }
 
       return Promise.reject(error);

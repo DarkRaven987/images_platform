@@ -16,3 +16,13 @@ input {
   outline-offset: unset;
   outline: none !important;
 }
+
+#root {
+  overflow-x: hidden;
+}
+
+#modal-root {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

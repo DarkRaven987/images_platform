@@ -1,0 +1,14 @@
+.modal-wrapper {
+  background: rgba(0, 0, 0, 0.377);
+  padding-top: 100px;
+  width: 100vw;
+  height: calc(100vh - 100px);
+}
+
+.modal-container {
+  background-color: white;
+  color: black;
+  width: 50%;
+  margin: 0 auto;
+  padding: 20px;
+}

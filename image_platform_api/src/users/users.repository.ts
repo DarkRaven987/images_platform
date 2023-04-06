@@ -12,14 +12,14 @@ AWS.config.update({ region: 'eu-central-1' });
 @Injectable()
 class UsersRepository {
   constructor(private configService: ConfigService) {
-    this.tableName = this.configService.get('DYNAMO_TABLE'); // TODO: move this to env vars
+    this.tableName = this.configService.get('DYNAMO_TABLE');
     this.db = new AWS.DynamoDB.DocumentClient();
   }
 
   private tableName: string;
   private db: DocumentClient;
 
-  private userPrefix = 'USR#'; // TODO: move this to env vars
+  private userPrefix = 'USR#';
 
   async create({ username, password }: CreateUserDto) {
     try {
@@ -64,7 +64,6 @@ class UsersRepository {
         .scan({
           TableName: this.tableName,
           FilterExpression: 'username = :username',
-          // Define the expression attribute value, which are substitutes for the values you want to compare.
           ExpressionAttributeValues: {
             ':username': username,
           },
