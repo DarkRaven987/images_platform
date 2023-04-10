@@ -1,29 +1,39 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { agent } from '../../utils/agent';
-import { API_GET_IMAGES_URL } from '../../utils/agentConsts';
+import { API_IMAGES_URL } from '../../utils/agentConsts';
 
-const initialState = [];
+const initialState = {
+  images: [],
+  loading: false,
+};
 
 const { actions, reducer } = createSlice({
   name: 'images',
   initialState,
   reducers: {
     saveImagesData(state, action) {
-      return (state = action.payload);
+      state.images = action.payload;
+      return state;
+    },
+    saveImagesLoading(state, action) {
+      state.loading = action.payload;
+      return state;
     },
   },
 });
 
-export const { saveUserData, clearUserData } = actions;
+export const { saveImagesData, saveImagesLoading } = actions;
 
 export const loadImageAction = async ({ dispatch }) => {
   try {
-    const loadedImages = await agent.get(API_GET_IMAGES_URL);
-    const { images } = loadedImages?.data;
+    dispatch(saveImagesLoading(true));
+    const loadedImages = await agent
+      .get(API_IMAGES_URL)
+      .finally(() => dispatch(saveImagesLoading(false)));
 
-    if (!images) return false;
+    if (!loadedImages?.data) return false;
 
-    dispatch(saveUserData(images));
+    dispatch(saveImagesData(loadedImages?.data));
 
     return true;
   } catch (err) {

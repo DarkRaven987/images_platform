@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import * as sharp from 'sharp';
 import { v4 as uuid } from 'uuid';
 
@@ -11,10 +11,6 @@ export class ImagesService {
 
   getImagesByUserId(userId: string) {
     return this.imagesRepository.getByUserId(userId);
-  }
-
-  getImageById(imageId: string) {
-    return this.imagesRepository.getById(imageId);
   }
 
   async uploadImage({ file, userId }: uploadImageDto) {
@@ -56,7 +52,7 @@ export class ImagesService {
     return { message: 'Ok' };
   }
 
-  deleteImageById(imageId: string) {
-    return this.imagesRepository.delete(imageId);
+  deleteImageById(userId: string, imageId: string) {
+    return this.imagesRepository.delete(userId, imageId);
   }
 }

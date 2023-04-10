@@ -4,3 +4,28 @@
   flex-direction: column;
   height: 100vh;
 }
+
+.page-content-container {
+  padding: 0 10%;
+  overflow-y: auto;
+  position: relative;
+  height: calc(100vh - 90px);
+}
+
+@media (max-width: 1300px) {
+  .page-content-container {
+    padding: 0 5%;
+  }
+}
+
+@media (max-width: 760px) {
+  .page-content-container {
+    padding: 0 2.5%;
+  }
+}
+
+@media (max-width: 600px) {
+  .page-content-container {
+    padding: 0;
+  }
+}

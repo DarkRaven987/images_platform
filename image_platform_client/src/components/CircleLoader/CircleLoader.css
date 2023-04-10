@@ -1,0 +1,33 @@
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  background-color: #d3d3d385;
+}
+
+.loader-container .sbl-circ {
+  height: 48px;
+  width: 48px;
+  color: lightgray;
+  position: relative;
+  display: inline-block;
+  border: 5px solid;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: rotate 1s linear infinite;
+}

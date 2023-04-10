@@ -23,11 +23,6 @@ export class ImagesController {
     return this.imagesService.getImagesByUserId(req.user.id);
   }
 
-  @Get(':id')
-  async getImageById(@Param('id') id: string) {
-    return this.imagesService.getImageById(id);
-  }
-
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
   async uploadImage(@Req() req, @UploadedFile() file) {
@@ -35,7 +30,7 @@ export class ImagesController {
   }
 
   @Delete(':id')
-  async deleteImageById(@Param('id') id: string) {
-    return this.imagesService.deleteImageById(id);
+  async deleteImageById(@Param('id') id: string, @Req() req) {
+    return this.imagesService.deleteImageById(req.user.id, id);
   }
 }
