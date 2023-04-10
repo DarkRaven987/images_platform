@@ -1,0 +1,15 @@
+.image-displayer-background {
+  background-image: url('../../assets/images/transparent-background.jpg');
+  background-size: 200px 100px;
+}
+
+.image-displayer {
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.image-displayer img {
+  visibility: hidden;
+  width: 100%;
+}

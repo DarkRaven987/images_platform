@@ -8,9 +8,11 @@ const DashboardView = () => {
     <div className="page-container">
       <Header title="Images platform" />
 
-      <AddImage />
+      <div className="page-content-container">
+        <AddImage />
 
-      <ImagesList />
+        <ImagesList />
+      </div>
     </div>
   );
 };

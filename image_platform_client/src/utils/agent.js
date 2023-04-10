@@ -82,10 +82,10 @@ const getAgentInstance = (props = {}) => {
         originalRequest._retry
       ) {
         console.log('TOKEN ERROR: Clearing token data.');
-        localStorage.removeItem('user');
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        window.location.replace(`${window.location.origin}/login`);
+        // localStorage.removeItem('user');
+        // localStorage.removeItem('accessToken');
+        // localStorage.removeItem('refreshToken');
+        // window.location.replace(`${window.location.origin}/login`);
       }
 
       return Promise.reject(error);

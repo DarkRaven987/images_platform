@@ -1,0 +1,58 @@
+.image-item-modal-content {
+  display: flex;
+  min-height: 330px;
+}
+
+.image-item-modal-content .image {
+  width: 60%;
+  border-radius: 15px;
+  overflow: hidden;
+  max-height: 60vh;
+  height: fit-content;
+}
+
+.image-item-modal-content .image-displayer-background {
+  display: flex;
+  justify-content: center;
+}
+
+.image-item-modal-content .image-displayer {
+  width: fit-content;
+}
+
+.image-item-modal-content .image-menu {
+  width: calc(40% - 80px);
+  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.image-item-modal-content .image-menu .image-menu-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.image-item-modal-content .image-menu .image-menu-item-row .button-item svg {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.image-item-modal-content .image-menu .image-menu-item-row:last-of-type {
+  margin-top: 35px;
+  margin-bottom: 0;
+}
+
+.image-item-modal-close-btn {
+  cursor: pointer;
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  color: black;
+  display: flex;
+  border-radius: 50%;
+  font-size: 22px;
+}
