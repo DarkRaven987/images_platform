@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  InternalServerErrorException,
-  Logger,
-} from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { DocumentClient } from 'aws-sdk/clients/dynamodb';
 import * as AWS from 'aws-sdk';
 import { v4 as uuid } from 'uuid';
@@ -69,8 +65,9 @@ class ImagesRepository {
     try {
       const newImageId = uuid();
       const imageItem = {
-        PK: `${this.imagePrefix}${newImageId}`,
-        SK: userId,
+        PK: userId,
+        SK: `${this.imagePrefix}${newImageId}`,
+        image_id: `${this.imagePrefix}${newImageId}`,
         image_100,
         image_100_key,
         image_50,
@@ -92,33 +89,16 @@ class ImagesRepository {
     }
   }
 
-  async getById(id: string) {
+  async getByUserId(userId: string) {
     try {
       const result = await this.db
         .query({
           TableName: this.tableName,
           KeyConditionExpression: 'PK = :pk',
+          FilterExpression: 'begins_with(image_id, :image_id)',
           ExpressionAttributeValues: {
-            ':pk': id,
-          },
-        })
-        .promise();
-
-      return result.Items;
-    } catch (error) {
-      throw new InternalServerErrorException(error);
-    }
-  }
-
-  async getByUserId(userId: string) {
-    try {
-      Logger.log('this.tableName', this.tableName);
-      const result = await this.db
-        .scan({
-          TableName: this.tableName,
-          FilterExpression: 'SK = :sk',
-          ExpressionAttributeValues: {
-            ':sk': `${userId}`,
+            ':image_id': 'IMG#',
+            ':pk': userId,
           },
         })
         .promise();
@@ -128,13 +108,14 @@ class ImagesRepository {
     }
   }
 
-  async delete(imageId: string) {
+  async delete(userId: string, imageId: string) {
     try {
       const result = await this.db
         .delete({
           TableName: this.tableName,
           Key: {
-            PK: imageId,
+            PK: userId,
+            SK: imageId,
           },
         })
         .promise();
