@@ -24,6 +24,11 @@ export class AuthController {
     private userService: UsersService,
   ) {}
 
+  @Get('health')
+  healthCheck() {
+    return { message: 'OK' };
+  }
+
   @Post('signup')
   @UsePipes(new JoiValidationPipe(authUserSchema))
   signup(@Body() createUserDto: AuthDto) {
