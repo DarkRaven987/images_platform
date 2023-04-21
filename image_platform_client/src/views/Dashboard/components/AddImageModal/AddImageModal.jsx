@@ -30,10 +30,10 @@ const AddImageModal = ({ show, toggle, loadImageAction }) => {
       let formData = new FormData();
 
       formData.append('file', file);
-      const uploadRes = await agent.post(API_UPLOAD_IMAGES_URL, formData);
+      const uploadRes = await agent
+        .post(API_UPLOAD_IMAGES_URL, formData)
+        .finally(() => setUploadingFile(false));
       const { message } = uploadRes?.data;
-      setUploadingFile(true);
-
       if (!message) return false;
 
       loadImageAction(); //NOTE: uncomment it when the images loading and displaying flow will be ready
