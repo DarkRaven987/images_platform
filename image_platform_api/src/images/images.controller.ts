@@ -1,11 +1,11 @@
 import {
+  Body,
   Controller,
   Delete,
   Get,
   Param,
   Post,
   Req,
-  UploadedFile,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -25,8 +25,8 @@ export class ImagesController {
 
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
-  async uploadImage(@Req() req, @UploadedFile() file) {
-    return this.imagesService.uploadImage({ file, userId: req.user.id });
+  async uploadImage(@Body() body, @Req() req) {
+    return this.imagesService.uploadImage({ ...body, userId: req.user.id });
   }
 
   @Delete(':id')

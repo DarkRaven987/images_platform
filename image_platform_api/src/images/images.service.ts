@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import * as sharp from 'sharp';
-import { v4 as uuid } from 'uuid';
 
 import ImagesRepository from './images.repository';
 import { uploadImageDto } from './dtos/images.dto';
@@ -13,39 +11,22 @@ export class ImagesService {
     return this.imagesRepository.getByUserId(userId);
   }
 
-  async uploadImage({ file, userId }: uploadImageDto) {
-    const originalFile = sharp(file.buffer);
-    const metadata = await originalFile.metadata();
-
-    const resized50 = await originalFile
-      .resize(Math.round(metadata.width / 2), Math.round(metadata.height / 2))
-      .toBuffer();
-    const resized25 = await originalFile
-      .resize(Math.round(metadata.width / 4), Math.round(metadata.height / 4))
-      .toBuffer();
-
-    const newImageId = uuid();
-
-    const fullSize = await this.imagesRepository.saveFileToBucket({
-      name: `${newImageId}-100-${file.originalname}`,
-      file: file.buffer,
-    });
-    const halfSize = await this.imagesRepository.saveFileToBucket({
-      name: `${newImageId}-50-${file.originalname}`,
-      file: resized50,
-    });
-    const quarterSize = await this.imagesRepository.saveFileToBucket({
-      name: `${newImageId}-25-${file.originalname}`,
-      file: resized25,
-    });
-
+  async uploadImage({
+    original_url,
+    original_key,
+    resized_50_url,
+    resized_50_key,
+    resized_25_url,
+    resized_25_key,
+    userId,
+  }: uploadImageDto) {
     await this.imagesRepository.create({
-      image_100: fullSize?.Location,
-      image_100_key: fullSize?.Key,
-      image_50: halfSize?.Location,
-      image_50_key: halfSize?.Key,
-      image_25: quarterSize?.Location,
-      image_25_key: quarterSize?.Key,
+      image_100: original_url,
+      image_100_key: original_key,
+      image_50: resized_50_url,
+      image_50_key: resized_50_key,
+      image_25: resized_25_url,
+      image_25_key: resized_25_key,
       userId,
     });
 
