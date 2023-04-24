@@ -8,12 +8,12 @@
   border-radius: 15px;
   overflow: hidden;
   max-height: 60vh;
-  height: fit-content;
 }
 
 .image-item-modal-content .image-displayer-background {
   display: flex;
   justify-content: center;
+  height: 100%;
 }
 
 .image-item-modal-content .image-displayer {

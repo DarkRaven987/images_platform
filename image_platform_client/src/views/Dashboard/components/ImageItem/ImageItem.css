@@ -1,5 +1,4 @@
 .image-item-container {
-  min-width: calc(20% - 40px);
   max-width: calc(33% - 40px);
   height: fit-content;
   margin: 0 20px 40px;
