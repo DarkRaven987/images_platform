@@ -7,11 +7,12 @@ import {
   Post,
   Req,
   UseGuards,
-  UseInterceptors,
+  UsePipes,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
 import { AccessTokenGuard } from 'src/auth/guards/accessToken.guard';
 import { ImagesService } from './images.service';
+import { JoiValidationPipe } from 'src/pipes/joi.pipe';
+import { UploadImageSchema } from './dtos/images.joi';
 
 @UseGuards(AccessTokenGuard)
 @Controller('images')
@@ -24,7 +25,7 @@ export class ImagesController {
   }
 
   @Post('upload')
-  @UseInterceptors(FileInterceptor('file'))
+  @UsePipes(new JoiValidationPipe(UploadImageSchema))
   async uploadImage(@Body() body, @Req() req) {
     return this.imagesService.uploadImage({ ...body, userId: req.user.id });
   }
