@@ -15,7 +15,10 @@ export const sendFilesToS3 = async (file, image) => {
   const newImageId = uuid();
   const fileExtension = file.name.split('.').splice(-1, 1);
 
-  const originalFile = renameFile(file, `${newImageId}-100-${file.name}`);
+  const originalFile = renameFile(
+    file,
+    `${newImageId}-100-${file.name.replaceAll(' ', '-')}`,
+  );
 
   const [resized50, resized25] = await Promise.all([
     new Promise((res) => {
@@ -27,7 +30,12 @@ export const sendFilesToS3 = async (file, image) => {
         100,
         0,
         (blob) => {
-          res(createFileWithName(blob, `${newImageId}-50-${file.name}`));
+          res(
+            createFileWithName(
+              blob,
+              `${newImageId}-50-${file.name.replaceAll(' ', '-')}`,
+            ),
+          );
         },
         'blob',
       );
@@ -41,7 +49,12 @@ export const sendFilesToS3 = async (file, image) => {
         100,
         0,
         (blob) => {
-          res(createFileWithName(blob, `${newImageId}-25-${file.name}`));
+          res(
+            createFileWithName(
+              blob,
+              `${newImageId}-25-${file.name.replaceAll(' ', '-')}`,
+            ),
+          );
         },
         'blob',
       );
