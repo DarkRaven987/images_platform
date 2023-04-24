@@ -16,7 +16,21 @@ const ImageItemModal = ({ show, toggle, image = {}, loadImageAction }) => {
   const handleImageDownload = useCallback(
     async (image_size) => {
       if (image && image[image_size]) {
-        window.open(image[image_size], '_blank');
+        fetch(image[image_size])
+          .then((resp) => resp.blob())
+          .then((blob) => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = `${image_size}.${image[image_size]
+              .split('.')
+              .splice(-1, 1)}`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            a.remove();
+          });
       }
     },
     [image],
