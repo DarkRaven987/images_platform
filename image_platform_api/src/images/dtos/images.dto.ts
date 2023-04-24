@@ -1,10 +1,10 @@
-export class createImageDto {
-  name: string;
-  file: Buffer;
-}
-
 export class uploadImageDto {
-  file: any;
+  original_url: string;
+  original_key: string;
+  resized_50_url: string;
+  resized_50_key: string;
+  resized_25_url: string;
+  resized_25_key: string;
   userId: string;
 }
 

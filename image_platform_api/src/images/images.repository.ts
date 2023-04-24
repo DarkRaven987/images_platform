@@ -3,7 +3,7 @@ import { DocumentClient } from 'aws-sdk/clients/dynamodb';
 import * as AWS from 'aws-sdk';
 import { v4 as uuid } from 'uuid';
 
-import { createImageDto, createFileInfoRowDto } from './dtos/images.dto';
+import { createFileInfoRowDto } from './dtos/images.dto';
 import { ConfigService } from '@nestjs/config';
 
 AWS.config.update({ region: 'eu-central-1' });
@@ -20,23 +20,6 @@ class ImagesRepository {
 
   private imagePrefix = 'IMG#';
   private s3 = new AWS.S3();
-
-  async saveFileToBucket({ name, file }: createImageDto) {
-    try {
-      const uploadResult = await this.s3
-        .upload({
-          Bucket: this.configService.get('AWS_IMAGES_BUCKET_NAME'),
-          Body: file,
-          Key: `images/${name}`,
-          ACL: 'public-read',
-        })
-        .promise();
-
-      return uploadResult;
-    } catch (error) {
-      throw new InternalServerErrorException(error);
-    }
-  }
 
   async deleteFileFromBucket(key: string) {
     try {

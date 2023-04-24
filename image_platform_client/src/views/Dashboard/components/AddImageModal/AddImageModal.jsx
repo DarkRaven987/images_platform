@@ -10,6 +10,7 @@ import { loadImageAction } from '../../../../store/reducers/images';
 import { agent } from '../../../../utils/agent';
 import { API_UPLOAD_IMAGES_URL } from '../../../../utils/agentConsts';
 import CircleLoader from '../../../../components/CircleLoader/CircleLoader';
+import { sendFilesToS3 } from './utils';
 
 const AddImageModal = ({ show, toggle, loadImageAction }) => {
   const [image, setImage] = useState(null);
@@ -27,21 +28,29 @@ const AddImageModal = ({ show, toggle, loadImageAction }) => {
   const handleSaveFile = useCallback(async () => {
     if (file) {
       setUploadingFile(true);
-      let formData = new FormData();
 
-      formData.append('file', file);
+      const [originalImage, resized50Image, resized25Image] =
+        await sendFilesToS3(file, image);
+
       const uploadRes = await agent
-        .post(API_UPLOAD_IMAGES_URL, formData)
+        .post(API_UPLOAD_IMAGES_URL, {
+          original_url: originalImage.location,
+          original_key: originalImage.key,
+          resized_50_url: resized50Image.location,
+          resized_50_key: resized50Image.key,
+          resized_25_url: resized25Image.location,
+          resized_25_key: resized25Image.key,
+        })
         .finally(() => setUploadingFile(false));
       const { message } = uploadRes?.data;
       if (!message) return false;
 
-      loadImageAction(); //NOTE: uncomment it when the images loading and displaying flow will be ready
+      loadImageAction();
       toggle();
       setFile(null);
       setImage(null);
     }
-  }, [file, toggle, loadImageAction]);
+  }, [file, image, toggle, loadImageAction]);
 
   return (
     <Modal show={show} toggle={toggle}>
